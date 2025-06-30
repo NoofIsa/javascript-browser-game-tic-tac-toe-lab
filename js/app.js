@@ -32,15 +32,16 @@ function init()
 
     console.log('init is running');
 
-    board =['X','','O','O','X','','','',''];
+    board =['','','','','','','','',''];
     turn="X";
     winner= false;
     tie= false;
     render();
+//    board =['X','O','X','O','X','','O','X','O'];
    
 }
 
-//init();
+init();
 
 
 function render()
@@ -84,20 +85,73 @@ function handleClick(event)
 
   console.log('Clicked square index:', squareIndex);
   
-if (board[squareIndex] === 'x' || board[squareIndex] === 'o')
-    return ;
-  else if  (winner=== true) 
-        return ;
- 
+if (board[squareIndex] === 'X' || board[squareIndex] === 'O'){
+    return ;}
+  else if  (winner=== true) {return ;}
   
+placePiece(squareIndex);
+ checkForWinner();       
+console.log('winner status',winner);
+checkForTie();
+console.log('tie status',tie);
+switchPlayerTurn();
+  console.log("turn status",turn);
+  render();
 }
 
 function placePiece(index)
 {
   board[index] = turn;
-console.log(board);
+  console.log(board);
 
 }
+// check for winner 
+function checkForWinner()
+{ 
+for (let combo of winningCombos) {
+    // combo[0], combo[1], combo[2] are the three indexes
+    if (
+      board[combo[0]] !== '' &&
+      board[combo[0]] === board[combo[1]] &&
+      board[combo[0]] === board[combo[2]]
+    ) {
+      winner = true;
+      return "Win!";
+    }
+  }
+  return false;
+
+}
+
+function checkForTie()
+{
+if (winner) return; 
+
+  if (!board.includes('')) 
+    tie = true;
+   else 
+    tie = false;
+  
+}
+function switchPlayerTurn ()
+{
+if (winner)
+  {
+  return;
+  }
+else if (!winner && turn==='X')
+  { 
+    turn='O';
+  }
+  else if (!winner && turn==='O')
+{
+  turn='X';
+}
+
+}
+
+
+
 
 /*----------------------------- Event Listeners -----------------------------*/
 for (let i = 0; i < squareEls.length; i++) {
@@ -105,10 +159,3 @@ for (let i = 0; i < squareEls.length; i++) {
 }
 
 
-/*function play(event) {
-    computerChoice = getComputerChoice()
-    playerChoice = event.target.id
-    // after updating state, render to html
-    compare()
-    render()
-}*/
