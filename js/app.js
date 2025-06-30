@@ -22,6 +22,8 @@ const squareEls = document.querySelectorAll('.sqr');
 const messageEl = document.querySelector('#message'); 
 //console.log(squareEls);
 //console.log(messageEl);
+const resetBtn = document.getElementById('resetButton');
+
 /*------------------------ Cached Element References ------------------------*/
 
 
@@ -157,5 +159,6 @@ else if (!winner && turn==='X')
 for (let i = 0; i < squareEls.length; i++) {
   squareEls[i].addEventListener('click', handleClick);
 }
+resetBtn.addEventListener('click', init);
 
 
