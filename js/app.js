@@ -1,7 +1,14 @@
 
 
 /*-------------------------------- Constants --------------------------------*/
-
+const winningCombos=[
+  [0, 1, 2],
+  [3, 4, 5],
+  [6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]
+  
+  ];
+ 
+/*---------------------------- Variables (state) ----------------------------*/
 //stores the current values in each square
 let board;
 //: keeps track of whether it's X’s or O’s turn
@@ -10,23 +17,13 @@ let turn;
 let winner;
 //racks if the game ends in a tie
 let tie ;
-const winningCombos=[
-  [0, 1, 2],
-  [3, 4, 5],
-  [6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]
-  
-  ];
-  let mssg;
-/*---------------------------- Variables (state) ----------------------------*/
+let mssg;
+/*------------------------ Cached Element References ------------------------*/
 const squareEls = document.querySelectorAll('.sqr'); 
 const messageEl = document.querySelector('#message'); 
 //console.log(squareEls);
 //console.log(messageEl);
 const resetBtn = document.getElementById('resetButton');
-
-/*------------------------ Cached Element References ------------------------*/
-
-
 
 /*-------------------------------- Functions --------------------------------*/
 function init()
@@ -39,7 +36,6 @@ function init()
     winner= false;
     tie= false;
     render();
-//    board =['X','O','X','O','X','','O','X','O'];
    
 }
 
@@ -55,7 +51,8 @@ updateMessage();
 }
 
 
-function updateBoard() {
+function updateBoard() 
+{
   board.forEach((value, index) => {
     squareEls[index].textContent = value;
   });
@@ -64,13 +61,14 @@ function updateBoard() {
 function updateMessage()
  {
   
-  if (!winner && !tie) {
+  if (!winner && !tie) 
+    {
   mssg= `It's ${turn}'s turn!`;
-} 
+    } 
 else if (!winner && tie)
    {
   mssg= "tie";
-} 
+   } 
 else if (winner)
    {
   mssg = `Congrats ${turn}! You won!`;
